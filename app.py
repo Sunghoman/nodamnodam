@@ -1,4 +1,3 @@
-from crypt import methods
 import jwt
 import datetime
 import hashlib

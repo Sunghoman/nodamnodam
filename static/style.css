@@ -1,0 +1,270 @@
+body {
+  background-color: #f4f7ff;
+  min-height: 100vh;
+  padding-top: 3.25rem;
+}
+
+.logo {
+  font-size: 36px;
+}
+
+hr {
+  background: #000;
+}
+
+.section {
+    padding: 1rem 1.5rem;
+    max-width: 750px;
+    margin: auto;
+}
+
+.is-sparta {
+    color: tomato !important;
+}
+
+.button.is-sparta {
+    background-color: tomato;
+    border-color: transparent;
+    color: #fff !important;
+}
+
+.button.is-sparta.is-outlined {
+    background-color: transparent;
+    border-color: tomato;
+    color: tomato !important;
+}
+
+.modal-content {
+    width: 600px;
+    max-width: 80%;
+}
+
+input::-webkit-calendar-picker-indicator {
+    display: none;
+}
+
+.image img {
+    object-fit:cover;
+    width:100%;
+    height:100%;
+}
+
+.textarea {
+  outline: none;
+  border: none;
+  background: #f4f7ff;
+}
+
+/* Ranking Start */
+.ranking {
+  height: 30vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.ranking h1 {
+  text-align: center;
+  text-transform: uppercase;
+  color: #262626;
+  font-size: 3rem;
+  width: 100%;
+}
+
+.ranking .roller {
+  height: 4.125rem;
+  line-height: 4rem;
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  color: tomato;
+}
+
+.ranking .roller .rolltext {
+  position: absolute;
+  top: 0;
+  animation: slide 100s infinite;
+}
+@keyframes slide {
+  0% {
+    top: 0;
+  }
+  10% {
+    top: -4rem;
+  }
+  20% {
+    top: -8rem;
+  }
+  30% {
+    top: -12rem;
+  }
+  40% {
+    top: -16rem;
+  }
+  50% {
+    top: -20rem;
+  }
+  60% {
+    top: -24rem;
+  }
+  70% {
+    top: -28rem;
+  }
+  80% {
+    top: -32rem;
+  }
+  90% {
+    top: -36rem;
+  }
+}
+/* Ranking End */
+
+.my-comment {
+  padding: 7px;
+  display: block;
+  margin-bottom: -35px;
+  width: 350px;
+  height: 50px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.hero-body {
+  width: 500px; 
+  height: auto;
+  margin: auto;
+  min-width: 400px;
+}
+
+/* section Calendar Start */
+.sec_cal {
+  width: 360px;
+  margin: 0 auto;
+}
+.sec_cal .cal_nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 700;
+  font-size: 48px;
+  line-height: 78px;
+}
+.sec_cal .cal_nav .year-month {
+  width: 300px;
+  text-align: center;
+  line-height: 1;
+}
+
+.sec_cal .cal_nav .nav {
+  display: flex;
+  border: 1px solid #333333;
+  border-radius: 5px;
+}
+.sec_cal .cal_nav .go-prev,
+.sec_cal .cal_nav .go-next {
+  display: block;
+  width: 50px;
+  height: 78px;
+  font-size: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.sec_cal .cal_nav .go-prev::before,
+.sec_cal .cal_nav .go-next::before {
+  content: "";
+  display: block;
+  width: 20px;
+  height: 20px;
+  border: 3px solid #000;
+  border-width: 3px 3px 0 0;
+  transition: border 0.3s;
+} 
+.sec_cal .cal_nav .go-prev:hover::before,
+.sec_cal .cal_nav .go-next:hover::before {
+  border-color: tomato;
+}
+.sec_cal .cal_nav .go-prev::before {
+  transform: rotate(-135deg);
+}
+.sec_cal .cal_nav .go-next::before {
+  transform: rotate(45deg);
+}
+.sec_cal .cal_wrap {
+  padding-top: 40px;
+  position: relative;
+  margin: 0 auto;
+}
+.sec_cal .cal_wrap .days {
+  display: flex;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgb(0, 0, 0);
+}
+.sec_cal .cal_wrap::after {
+  top: 368px;
+}
+.sec_cal .cal_wrap .day {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: calc(100% / 7);
+  text-align: left;
+  color: #999;
+  font-size: 12px;
+  text-align: center;
+  border-radius: 5px;
+}
+
+.current.today {
+  background: rgb(242,242,242);
+}
+
+.sec_cal .cal_wrap .dates {
+  display: flex;
+  flex-flow: wrap;
+  height: 290px;
+}
+
+.sec_cal .cal_wrap .day:nth-child(7n -1) {
+  color: #3c6ffa;
+}
+.sec_cal .cal_wrap .day:nth-child(7n) {
+  color: #ed2a61;
+}
+.sec_cal .cal_wrap .day.disable {
+  color: #ddd;
+}
+
+.sec_cal {
+  margin-bottom: 100px;
+  margin-top: -100px;
+}
+
+.current {
+  transition: all 0.3s linear;
+}
+.current:hover {
+  transform: scale(1.5);
+}
+/* section Calendar End */
+
+#profile-info {
+  background-color: #DAEDFB;
+}
+
+.current.today.smoked {
+  background: tomato;
+}
+
+@media (max-width: 768px) {
+  .sec_cal {
+    margin-top: 10px;
+  }
+}

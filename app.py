@@ -193,31 +193,18 @@ def update_like():
     except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
         return redirect(url_for("home"))
 
-@app.route("/record", methods=['GET', 'POST'])
+@app.route("/record", methods=['POST'])
 def record_smoke():
-    if methods == "POST":
-        token_receive = request.cookies.get('mytoken')
-        try:
-            payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
-            smoked_day = request.form["smoked_day"]
-            db.users.update_one({'username': payload['id']}, {'$push':{"smoked_day": smoked_day}})
-            return jsonify({"result": "success", 'msg': '금연 기록 성공'})
-        except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
-            return redirect(url_for("home"))
-    # else:
-    #     token_receive = request.cookies.get('mytoken')
-    #     try:
-    #         payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
-    #         username_receive = request.args.get("username_give")
-    #         if username_receive == "":
-    #             smoked = list(db.users.find({}))
-    #         else:
-    #             smoked = list(db.users.find({"username": username_receive}))
-    #         for smoke in smoked:
-    #             smoke["_id"] = str(smoke["_id"])
-    #             smoke["smoked_day"] = db.users.count_documents({})
-    else:
+    token_receive = request.cookies.get('mytoken')
+    try:
+        payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+        smoked_day = request.form["smoked_day"]
+        db.users.update_one({'username': payload['id']}, {'$push':{"smoked_day": smoked_day}})
+        return jsonify({"result": "success", 'msg': '금연 기록 성공'})
+    except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
         return redirect(url_for("home"))
+    # else:
+    #     return redirect(url_for("home"))
 
 
 

@@ -22,7 +22,7 @@
           $(document).ready(function() {
             get_posts('{{ user_info.username }}');
             calendarInit();
-            get_calendar();
+            // get_calendar('{{ user_info.username }}');
           })
           
         </script>
@@ -68,21 +68,23 @@
                 })
             }
 
-            function get_calendar(username) {
-                if (username == undefined) {
-                    username=''
-                }
-                $.ajax({
-                    type: "GET",
-                    url: `/record?username_give=${username}`,
-                    data: {},
-                    success: function (response) {
-                        if (response["result"] == "success") {
-                            console.log("nice!")
-                        }
-                    }
-                })
-            }
+            // function get_calendar(username) {
+            //     if (username == undefined) {
+            //         username=''
+            //     }
+            //     $.ajax({
+            //         type: "GET",
+            //         url: `/record?username_give=${username}`,
+            //         data: {},
+            //         success: function (response) {
+            //             if (response["result"] == "success") {
+            //                 console.log("nice!")
+            //                 let smoked = response["smoked"]
+            //                 console.log(smoked)
+            //             }
+            //         }
+            //     })
+            // }
         </script>
     </head>
 
@@ -191,6 +193,7 @@
                     </div>
                 {% endif %}
             </div>
+            {% if status %}
             <div class="sec_cal">
                 <div class="cal_nav">
                     <a href="javascript:;" class="nav-btn go-prev">prev</a>
@@ -210,6 +213,7 @@
                     <div class="dates"></div>
                 </div>
             </div>
+            {% endif %}
 
         </section>
         

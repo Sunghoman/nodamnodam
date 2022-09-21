@@ -20,10 +20,30 @@
         <script src="{{ url_for('static', filename='myJS.js') }}"></script>
         <script>
           $(document).ready(function() {
+            let today = new Date();
+            let year = today.getFullYear();
+            let month = today.getMonth()+1;
+            let day = today.getDate();
+            let startdate = '{{ user_info.register_day }}'.split("-")
+            let startdateYear = startdate[0]
+            let startdateMonth = startdate[1]
+            let startdateDay = startdate[2].substring(0,2)
+            let endDay = new Date(year, month, day);
+            let startDay = new Date(startdateYear, startdateMonth, startdateDay);
+            let btMs = endDay.getTime() - startDay.getTime();
+            let btDay = btMs / (1000*60*60*24) // 금연 일수
+
+            let myDate = String(startdateYear) + "-" + String(startdateMonth) + "-" + startDay.getDate();
+            //console.log(myDate)
+
+            document.getElementById("startDay").innerHTML = "금연 시작일: " + myDate 
+            document.getElementById("noSmoke").innerHTML = "금연 " + btDay + "일 차"
+            
+
             get_posts('{{ user_info.username }}');
             calendarInit();
-            get_calendar();
-            show_smoke();
+            smoke_get();
+            // get_calendar('{{ user_info.username }}');
           })
           
         </script>
@@ -61,7 +81,7 @@
                     url: "/record",
                     data: {smoked_day: clicked_id},
                     success: function(res) {
-                        if (res["result"] == "successs") {
+                        if (res["result"] == "success") {
                             alert(clicked_id + " 에 담배핌");
                             window.location.reload()
                         }
@@ -69,43 +89,44 @@
                 })
             }
 
-            // 테스트 중!
-            // function show_smoke() {
-            //     alert("흡연자 정보 확인");
-            //     // if (username == undefined) {
-            //     //     username=''
-            //     // }
-            //     $.ajax({
-            //         type: "GET",
-            //         url: "/record",
-            //         data: {},
-            //         success: function(response) {
-                        
-            //                 console.log(response["register_day"])
-            //             }                  
-            //     })
-            // }
-
-            function get_calendar(username) {
-                if (username == undefined) {
-                    username=''
-                }
+            function smoke_get() {
+                alert("클라이언트 smoke_get")
                 $.ajax({
                     type: "GET",
-                    url: `/record?username_give=${username}`,
+                    url: "/record",
                     data: {},
-                    success: function (response) {
+                    success: function(response) {
+                        alert("response funtion 진입")
                         if (response["result"] == "success") {
-                            console.log("nice!")
+                            alert(response["user_info"])
+                            //window.location.reload()
                         }
                     }
                 })
             }
+
+            // function get_calendar(username) {
+            //     if (username == undefined) {
+            //         username=''
+            //     }
+            //     $.ajax({
+            //         type: "GET",
+            //         url: `/record?username_give=${username}`,
+            //         data: {},
+            //         success: function (response) {
+            //             if (response["result"] == "success") {
+            //                 console.log("nice!")
+            //                 let smoked = response["smoked"]
+            //                 console.log(smoked)
+            //             }
+            //         }
+            //     })
+            // }
         </script>
     </head>
 
     <body class="has-navbar-fixed-top">
-        
+
         <nav class="navbar is-fixed-top is-white" role="navigation" aria-label="main navigation">
             <div class="navbar-brand">
                 <a class="navbar-item" href="/">
@@ -129,7 +150,8 @@
                                 <br>
                                 <div class="my-comment">{{ user_info.profile_info }}</div>
                                 <hr>
-                                금연 시작일: {{ user_info.register_day }}
+                                <div id="noSmoke"></div>
+                                <p id="startDay"></p>
                             </p>
                         </div>
                     </div>
@@ -209,6 +231,7 @@
                     </div>
                 {% endif %}
             </div>
+            {% if status %}
             <div class="sec_cal">
                 <div class="cal_nav">
                     <a href="javascript:;" class="nav-btn go-prev">prev</a>
@@ -228,6 +251,7 @@
                     <div class="dates"></div>
                 </div>
             </div>
+            {% endif %}
 
         </section>
         

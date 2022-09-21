@@ -139,7 +139,11 @@ function get_posts(username) {
 }
 
 // Calendar Start !!!
-function calendarInit() {
+function calendarInit(username) {
+
+  if (username == null) {
+    username=''
+  }
 
   // 날짜 정보 가져오기
   var date = new Date(); // 현재 날짜(로컬 기준) 가져오기
@@ -159,9 +163,9 @@ function calendarInit() {
   // console.log(thisMonth);
 
   // 캘린더 렌더링
-  renderCalender(thisMonth);
+  renderCalendar(thisMonth);
 
-  function renderCalender(thisMonth) {
+  function renderCalendar(thisMonth) {
 
       // 렌더링을 위한 데이터 정리
       currentYear = thisMonth.getFullYear();
@@ -185,7 +189,6 @@ function calendarInit() {
 
       // 렌더링 html 요소 생성
       calendar = document.querySelector('.dates')
-      calendar.innerHTML = '';
       
       // 지난달
       for (var i = prevDate - prevDay + 1; i <= prevDate; i++) {
@@ -211,13 +214,12 @@ function calendarInit() {
   // 이전달로 이동
   $('.go-prev').on('click', function() {
       thisMonth = new Date(currentYear, currentMonth - 1, 1);
-      renderCalender(thisMonth);
+      renderCalendar(thisMonth);
   });
 
   // 다음달로 이동
   $('.go-next').on('click', function() {
       thisMonth = new Date(currentYear, currentMonth + 1, 1);
-      renderCalender(thisMonth); 
+      renderCalendar(thisMonth); 
   });
 }
-

@@ -18,31 +18,85 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
         <script src="{{ url_for('static', filename='myJS.js') }}"></script>
+
         <script>
           $(document).ready(function() {
             let today = new Date();
-            let year = today.getFullYear();
-            let month = today.getMonth()+1;
-            let day = today.getDate();
-            let startdate = '{{ user_info.register_day }}'.split("-")
+            let todayYear = today.getFullYear();
+            let todayMonth = today.getMonth()+1;
+            let todayDay = today.getDate();
+            
+            let startdate = '{{ user_info.register_day }}'.split("-") //태그 내 innerHTML로 불러와야함 session값 ㄴㄴ 
+
             let startdateYear = startdate[0]
             let startdateMonth = startdate[1]
             let startdateDay = startdate[2].substring(0,2)
-            let endDay = new Date(year, month, day);
+            let endDay = new Date(todayYear, todayMonth, todayDay);
             let startDay = new Date(startdateYear, startdateMonth, startdateDay);
             let btMs = endDay.getTime() - startDay.getTime();
-            let btDay = btMs / (1000*60*60*24) // 금연 일수
+            let btDay = btMs / (1000 * 60 * 60 * 24) // 금연 일수
 
             let myDate = String(startdateYear) + "-" + String(startdateMonth) + "-" + startDay.getDate();
             console.log(myDate)
 
-            document.getElementById("startDay").innerHTML = "금연 시작일: " + myDate 
+            document.getElementById("startDay").innerHTML = "금연 시작일: " + myDate
             document.getElementById("noSmoke").innerHTML = "금연 " + btDay + "일 차"
-            
 
             get_posts('{{ user_info.username }}');
-            calendarInit();
             // get_calendar('{{ user_info.username }}');
+
+            let startdate1 = document.getElementById("startDay").innerText
+            console.log(startdate1 + "Asd")
+            let startdateYear1 = startdate1.split(":")[1].split("-")[0].replace(" ","")
+            let startdateMonth1 = startdate1.split(":")[1].split("-")[1]
+            let startdateDay1 = startdate1.split(":")[1].split("-")[2]
+            let startDay1 = new Date(startdateYear1, startdateMonth1, startdateDay1);
+            let btMs1 = endDay.getTime() - startDay1.getTime();
+            let btDay1 = btMs1 / (1000 * 60 * 60 * 24) // 금연 일수
+            let myDate1 = String(startdateYear1) + "-" + String(startdateMonth1) + "-" + startDay1.getDate();
+            console.log(myDate1, myDate)
+            document.getElementById("startDay").innerHTML = "금연 시작일: " + myDate1
+            document.getElementById("noSmoke").innerHTML = "금연 " + btDay1 + "일 차"
+
+
+            if (btDay1 > 1000) {
+                console.log("금연 1000일 이상임")
+                let achievement = document.getElementById("achievement-1000");
+                achievement.classList.add("rubberBand");
+            } if (btDay1 > 700) {
+                console.log("금연 700일 이상임")
+                let achievement = document.getElementById("achievement-700");
+                achievement.classList.add("rubberBand");
+            } if (btDay1 > 500) {
+                console.lof("금연 500일 이상임")
+                let achievement = document.getElementById("achievement-500");
+                achievement.classList.add("rubberBand");
+            } if (btDay1 > 365) {
+                console.log("금연 1주년!")
+                let achievement = document.getElementById("achievement-anniversary");
+                achievement.classList.add("rubberBand");
+            } if (btDay1 > 300) {
+                console.log("금연 300일 이상임")
+                let achievement = document.getElementById("achievement-300");
+                achievement.classList.add("rubberBand");
+            } if (btDay1 > 200) {
+                console.log("금연 200일 이상임")
+                let achievement = document.getElementById("achievement-200");
+                achievement.classList.add("rubberBand");
+            } if (btDay1 > 100) {
+                console.log("금연 100일 이상임")
+                let achievement = document.getElementById("achievement-100");
+                achievement.classList.add("rubberBand");
+            } if (btDay1 > 50) {
+                console.log("금연 50일 이상임")
+                let achievement = document.getElementById("achievement-50");
+                achievement.classList.add("rubberBand");
+            } if (btDay1 > 1) {
+                console.log("금연 1일차! 위대한 시작")
+                let achievement = document.getElementById("achievement-1");
+                achievement.classList.add("rubberBand");
+            }
+
           })
           
         </script>
@@ -117,6 +171,65 @@
                 </a>
             </div>
         </nav>
+
+        <nav id="sidebar">
+            <ul class="dots">
+              <li>
+                <a href="#">
+                  <span class="achievement-1">1<mark id="achievement-1"></mark></span>
+                  <p class="arrow_box">금연 1일! 위대한 시작</p>
+                </a>  
+              </li>
+              <li>
+                <a href="#">
+                  <span class="achievement-1">50<mark id="achievement-50"></mark></span>
+                  <p class="arrow_box">금연 50일! 잘 하고 있어용</p>
+                </a>  
+              </li>
+              <li>
+                <a href="#">
+                  <span class="achievement-100">100<mark id="achievement-100"></mark></span>
+                  <p class="arrow_box">금연 100일!</p>
+                </a>  
+              </li>
+              <li>
+                <a href="#">
+                <span class="achievement-200">200<mark id="achievement-200"></mark></span>
+                <p class="arrow_box">금연 200일! 당신은 멋쟁이</p>
+                </a>  
+              </li>
+              <li>
+                <a href="#">
+                <span class="achievement-300">300<mark id="achievement-300"></mark></span>
+                <p class="arrow_box">금연 300일! 무야호</p>
+                </a>
+              </li>
+              <li class="anniversary">
+                <a href="#">
+                <span class="achievement-anniversary">1<mark id="achievement-anniversary"></mark></span>
+                <p class="arrow_box">금연 1주년!</p>
+                </a>
+              </li>    
+              <li>
+                <a href="#">
+                <span class="achievement-500">500<mark id="achievement-500"></mark></span>
+                <p class="arrow_box">금연 500일!</p>
+                </a>
+              </li>      
+              <li>
+                <a href="#">
+                <span class="achievement-700">700<mark id="achievement-700"></mark></span>
+                <p class="arrow_box">금연 700일!</p>
+                </a>
+              </li>        
+              <li>
+                <a href="#">
+                <span class="achievement-1000">1k<mark id="achievement-1000"></mark></span>
+                <p class="arrow_box">금연 1000일!</p>
+                </a>
+              </li>    
+            </ul> 
+          </nav>
 
         <section class="hero is-medium is-warning" id="profile-info">
             <div class="hero-body">
@@ -297,6 +410,12 @@
       
             </div>
         </section>
+
+        <script>
+            $(document).ready(function() {
+                calendarInit();
+            })
+        </script>
       </body>
 
 </html>

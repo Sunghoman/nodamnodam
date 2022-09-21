@@ -33,7 +33,12 @@
             let btMs = endDay.getTime() - startDay.getTime();
             let btDay = btMs / (1000*60*60*24) // 금연 일수
 
+            let myDate = String(startdateYear) + "-" + String(startdateMonth) + "-" + startDay.getDate();
+            console.log(myDate)
+
+            document.getElementById("startDay").innerHTML = "금연 시작일: " + myDate 
             document.getElementById("noSmoke").innerHTML = "금연 " + btDay + "일 차"
+            
 
             get_posts('{{ user_info.username }}');
             calendarInit();
@@ -128,8 +133,8 @@
                                 <br>
                                 <div class="my-comment">{{ user_info.profile_info }}</div>
                                 <hr>
-                                금연 시작일: {{ user_info.register_day }}
                                 <div id="noSmoke"></div>
+                                <p id="startDay"></p>
                             </p>
                         </div>
                     </div>

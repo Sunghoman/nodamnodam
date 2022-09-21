@@ -19,8 +19,16 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
         <script src="{{ url_for('static', filename='myJS.js') }}"></script>
 
+
         <script>
           $(document).ready(function() {
+
+            let smoked_day = '{{ user_info.smoked_day }}'
+            let smoked_day1 = smoked_day.replaceAll("&#39;","").replace("[","").replace("]","").replaceAll("'","")
+            console.log(smoked_day1)
+            let smoked_day2 = smoked_day1.split(",")
+            console.log(smoked_day2)
+
             let today = new Date();
             let todayYear = today.getFullYear();
             let todayMonth = today.getMonth()+1;
@@ -43,10 +51,8 @@
             document.getElementById("noSmoke").innerHTML = "금연 " + btDay + "일 차"
 
             get_posts('{{ user_info.username }}');
-            // get_calendar('{{ user_info.username }}');
 
             let startdate1 = document.getElementById("startDay").innerText
-            console.log(startdate1 + "Asd")
             let startdateYear1 = startdate1.split(":")[1].split("-")[0].replace(" ","")
             let startdateMonth1 = startdate1.split(":")[1].split("-")[1]
             let startdateDay1 = startdate1.split(":")[1].split("-")[2]
@@ -54,10 +60,10 @@
             let btMs1 = endDay.getTime() - startDay1.getTime();
             let btDay1 = btMs1 / (1000 * 60 * 60 * 24) // 금연 일수
             let myDate1 = String(startdateYear1) + "-" + String(startdateMonth1) + "-" + startDay1.getDate();
-            console.log(myDate1, myDate)
             document.getElementById("startDay").innerHTML = "금연 시작일: " + myDate1
             document.getElementById("noSmoke").innerHTML = "금연 " + btDay1 + "일 차"
 
+            calendarInit();
 
             if (btDay1 > 1000) {
                 console.log("금연 1000일 이상임")
@@ -142,23 +148,6 @@
                 })
             }
 
-            // function get_calendar(username) {
-            //     if (username == undefined) {
-            //         username=''
-            //     }
-            //     $.ajax({
-            //         type: "GET",
-            //         url: `/record?username_give=${username}`,
-            //         data: {},
-            //         success: function (response) {
-            //             if (response["result"] == "success") {
-            //                 console.log("nice!")
-            //                 let smoked = response["smoked"]
-            //                 console.log(smoked)
-            //             }
-            //         }
-            //     })
-            // }
         </script>
     </head>
 
@@ -248,6 +237,7 @@
                                 <hr>
                                 <div id="noSmoke"></div>
                                 <p id="startDay"></p>
+                                {{ user_info.smoked_day }}
                             </p>
                         </div>
                     </div>
@@ -410,12 +400,6 @@
       
             </div>
         </section>
-
-        <script>
-            $(document).ready(function() {
-                calendarInit();
-            })
-        </script>
       </body>
 
 </html>

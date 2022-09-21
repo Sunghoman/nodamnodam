@@ -139,11 +139,11 @@ function get_posts(username) {
 }
 
 // Calendar Start !!!
-function calendarInit(username) {
+function calendarInit() {
 
-  if (username == null) {
-    username=''
-  }
+  // if (username == null) {
+  //   username=''
+  // }
 
   // 날짜 정보 가져오기
   var date = new Date(); // 현재 날짜(로컬 기준) 가져오기
@@ -189,6 +189,7 @@ function calendarInit(username) {
 
       // 렌더링 html 요소 생성
       calendar = document.querySelector('.dates')
+      calendar.innerHTML = '';
       
       // 지난달
       for (var i = prevDate - prevDay + 1; i <= prevDate; i++) {

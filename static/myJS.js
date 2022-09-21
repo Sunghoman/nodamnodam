@@ -167,49 +167,49 @@ function calendarInit() {
 
   function renderCalendar(thisMonth) {
 
-      // 렌더링을 위한 데이터 정리
-      currentYear = thisMonth.getFullYear();
-      currentMonth = thisMonth.getMonth();
-      currentDate = thisMonth.getDate();
+    // 렌더링을 위한 데이터 정리
+    currentYear = thisMonth.getFullYear();
+    currentMonth = thisMonth.getMonth();
+    currentDate = thisMonth.getDate();
 
-      // 이전 달의 마지막 날 날짜와 요일 구하기
-      var startDay = new Date(currentYear, currentMonth, 0);
-      var prevDate = startDay.getDate();
-      var prevDay = startDay.getDay();
+    // 이전 달의 마지막 날 날짜와 요일 구하기
+    var startDay = new Date(currentYear, currentMonth, 0);
+    var prevDate = startDay.getDate();
+    var prevDay = startDay.getDay();
 
-      // 이번 달의 마지막날 날짜와 요일 구하기
-      var endDay = new Date(currentYear, currentMonth + 1, 0);
-      var nextDate = endDay.getDate();
-      var nextDay = endDay.getDay();
+    // 이번 달의 마지막날 날짜와 요일 구하기
+    var endDay = new Date(currentYear, currentMonth + 1, 0);
+    var nextDate = endDay.getDate();
+    var nextDay = endDay.getDay();
 
-      // console.log(prevDate, prevDay, nextDate, nextDay);
+    // console.log(prevDate, prevDay, nextDate, nextDay);
 
-      // 현재 월 표기
-      $('.year-month').text(currentYear + '.' + (currentMonth + 1));
+    // 현재 월 표기
+    $('.year-month').text(currentYear + '.' + (currentMonth + 1));
 
-      // 렌더링 html 요소 생성
-      calendar = document.querySelector('.dates')
-      calendar.innerHTML = '';
-      
-      // 지난달
-      for (var i = prevDate - prevDay + 1; i <= prevDate; i++) {
-          calendar.innerHTML = calendar.innerHTML + '<div class="day prev disable">' + i + '</div>'
-      }
-      // 이번달
-      for (var i = 1; i <= nextDate; i++) {
-          calendar.innerHTML = calendar.innerHTML + '<a class="day current" id=' + currentYear + "-" + parseInt(currentMonth+1) + "-" + i +' onclick="clickFunc2(this.id)"><div>' + i + '</div></a>'
-      }
-      // 다음달
-      for (var i = 1; i <= (7 - nextDay == 7 ? 0 : 7 - nextDay); i++) {
-          calendar.innerHTML = calendar.innerHTML + '<div class="day next disable">' + i + '</div>'
-      }
+    // 렌더링 html 요소 생성
+    calendar = document.querySelector('.dates')
+    calendar.innerHTML = '';
+    
+    // 지난달
+    for (var i = prevDate - prevDay + 1; i <= prevDate; i++) {
+        calendar.innerHTML = calendar.innerHTML + '<div class="day prev disable">' + i + '</div>'
+    }
+    // 이번달
+    for (var i = 1; i <= nextDate; i++) {
+        calendar.innerHTML = calendar.innerHTML + '<a class="day current"><div onclick="clickFunc2(this.id)" id=' + currentYear + "-" + parseInt(currentMonth+1) + "-" + i +'>' + i + '</div></a>'
+    }
+    // 다음달
+    for (var i = 1; i <= (7 - nextDay == 7 ? 0 : 7 - nextDay); i++) {
+        calendar.innerHTML = calendar.innerHTML + '<div class="day next disable">' + i + '</div>'
+    }
 
-      // 오늘 날짜 표기
-      if (today.getMonth() == currentMonth) {
-          todayDate = today.getDate();
-          var currentMonthDate = document.querySelectorAll('.dates .current');
-          currentMonthDate[todayDate -1].classList.add('today');
-      }
+    // 오늘 날짜 표기
+    if (today.getMonth() == currentMonth) {
+        todayDate = today.getDate();
+        var currentMonthDate = document.querySelectorAll('.dates .current');
+        currentMonthDate[todayDate -1].classList.add('today');
+    }
   }
 
   // 이전달로 이동
@@ -223,4 +223,45 @@ function calendarInit() {
       thisMonth = new Date(currentYear, currentMonth + 1, 1);
       renderCalendar(thisMonth); 
   });
+}
+
+
+function update_profile() {
+  let name = $('#input-name').val()
+  let file = $('#input-pic')[0].files[0]
+  let about = $("#textarea-about").val()
+  let form_data = new FormData()
+  form_data.append("file_give", file)
+  form_data.append("name_give", name)
+  form_data.append("about_give", about)
+  console.log(name, file, about, form_data)
+
+  $.ajax({
+      type: "POST",
+      url: "/update_profile",
+      data: form_data,
+      cache: false,
+      contentType: false,
+      processData: false,
+      success: function (response) {
+          if (response["result"] == "success") {
+              alert(response["msg"])
+              window.location.reload()
+          }
+      }
+  });
+}
+function clickFunc2(clicked_id) {
+  alert(clicked_id + " 에 담배핌");
+  $.ajax({
+      type: "POST",
+      url: "/record",
+      data: {smoked_day: clicked_id},
+      success: function(res) {
+          if (res["result"] == "successs") {
+              window.location.reload()
+              alert(clicked_id + " 에 담배핌");
+          }
+      }
+  })
 }

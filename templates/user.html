@@ -1,15 +1,12 @@
 <!doctype html>
 <html lang="ko">
     <head>
-
         <!-- Webpage Title -->
         <title>{{ user_info.name }} | 노담노담</title>
 
-        <!-- Required meta tags -->
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-        <!-- Bulma CSS -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
         <!-- Font Awesome CSS -->
         <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
@@ -19,23 +16,38 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
         <script src="{{ url_for('static', filename='myJS.js') }}"></script>
 
+        <script>
+            window.onload = (username) => {
+                if (username == null) {
+                    username=''
+                }
+                let smoked_day = '{{ user_info.smoked_day }}'
+                let smoked_day1 = smoked_day.replaceAll("&#39;","").replace("[","").replace("]","").replaceAll("'","")
+                let smoked_day2 = smoked_day1.split(",")
+                // console.log(smoked_day2) //array자료형
+                let smoked_day3 = new Set(smoked_day2) //array 내 중복 제거해줌 근데 DB에서 먼저 정리하고 가져오는게 더 좋을듯
+                // console.log(smoked_day3)
+                let smoked_day4 = [...smoked_day3]
+                // console.log(smoked_day4.length)
+                for (i = 0; i < smoked_day4.length; i++) {
+                    const day = smoked_day4[i].trim().replaceAll(" ","");
+                    document.getElementById(day).style.color="red";
+                }
+            }
+            $(document).ready(() => {
+                calendarInit();
+            })
+        </script>
 
         <script>
+          
           $(document).ready(function() {
-
-            let smoked_day = '{{ user_info.smoked_day }}'
-            let smoked_day1 = smoked_day.replaceAll("&#39;","").replace("[","").replace("]","").replaceAll("'","")
-            console.log(smoked_day1)
-            let smoked_day2 = smoked_day1.split(",")
-            console.log(smoked_day2)
 
             let today = new Date();
             let todayYear = today.getFullYear();
             let todayMonth = today.getMonth()+1;
             let todayDay = today.getDate();
-            
             let startdate = '{{ user_info.register_day }}'.split("-") //태그 내 innerHTML로 불러와야함 session값 ㄴㄴ 
-
             let startdateYear = startdate[0]
             let startdateMonth = startdate[1]
             let startdateDay = startdate[2].substring(0,2)
@@ -43,14 +55,10 @@
             let startDay = new Date(startdateYear, startdateMonth, startdateDay);
             let btMs = endDay.getTime() - startDay.getTime();
             let btDay = btMs / (1000 * 60 * 60 * 24) // 금연 일수
-
             let myDate = String(startdateYear) + "-" + String(startdateMonth) + "-" + startDay.getDate();
-            console.log(myDate)
-
+            // console.log(myDate)
             document.getElementById("startDay").innerHTML = "금연 시작일: " + myDate
             document.getElementById("noSmoke").innerHTML = "금연 " + btDay + "일 차"
-
-            get_posts('{{ user_info.username }}');
 
             let startdate1 = document.getElementById("startDay").innerText
             let startdateYear1 = startdate1.split(":")[1].split("-")[0].replace(" ","")
@@ -62,8 +70,6 @@
             let myDate1 = String(startdateYear1) + "-" + String(startdateMonth1) + "-" + startDay1.getDate();
             document.getElementById("startDay").innerHTML = "금연 시작일: " + myDate1
             document.getElementById("noSmoke").innerHTML = "금연 " + btDay1 + "일 차"
-
-            calendarInit();
 
             if (btDay1 > 1000) {
                 console.log("금연 1000일 이상임")
@@ -103,50 +109,13 @@
                 achievement.classList.add("rubberBand");
             }
 
+            get_posts('{{ user_info.username }}');
+
           })
           
         </script>
         <script>
-            function update_profile() {
-                let name = $('#input-name').val()
-                let file = $('#input-pic')[0].files[0]
-                let about = $("#textarea-about").val()
-                let form_data = new FormData()
-                form_data.append("file_give", file)
-                form_data.append("name_give", name)
-                form_data.append("about_give", about)
-                console.log(name, file, about, form_data)
 
-                $.ajax({
-                    type: "POST",
-                    url: "/update_profile",
-                    data: form_data,
-                    cache: false,
-                    contentType: false,
-                    processData: false,
-                    success: function (response) {
-                        if (response["result"] == "success") {
-                            alert(response["msg"])
-                            window.location.reload()
-
-                        }
-                    }
-                });
-            }
-            function clickFunc2(clicked_id) {
-                alert(clicked_id + " 에 담배핌");
-                $.ajax({
-                    type: "POST",
-                    url: "/record",
-                    data: {smoked_day: clicked_id},
-                    success: function(res) {
-                        if (res["result"] == "successs") {
-                            alert(clicked_id + " 에 담배핌");
-                            window.location.reload()
-                        }
-                    }
-                })
-            }
 
         </script>
     </head>
@@ -237,7 +206,6 @@
                                 <hr>
                                 <div id="noSmoke"></div>
                                 <p id="startDay"></p>
-                                {{ user_info.smoked_day }}
                             </p>
                         </div>
                     </div>
@@ -401,5 +369,4 @@
             </div>
         </section>
       </body>
-
 </html>

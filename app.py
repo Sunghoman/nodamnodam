@@ -198,8 +198,8 @@ def record_smoke():
     try:
         payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
         smoked_day = request.form["smoked_day"]
-        db.users.update_one({'username': payload['id']}, {'$push':{"smoked_day": smoked_day}})
-        return jsonify({"result": "success", 'msg': '금연 기록 성공'})
+        db.users.update_one({'username': payload['id']}, {'$push':{"smoked_day": smoked_day}}, upsert=True)
+        return jsonify({"result": "success", 'msg': '흡연 기록 성공'})
     except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
         return redirect(url_for("home"))
     # else:

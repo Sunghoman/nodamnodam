@@ -20,6 +20,21 @@
         <script src="{{ url_for('static', filename='myJS.js') }}"></script>
         <script>
           $(document).ready(function() {
+            let today = new Date();
+            let year = today.getFullYear();
+            let month = today.getMonth()+1;
+            let day = today.getDate();
+            let startdate = '{{ user_info.register_day }}'.split("-")
+            let startdateYear = startdate[0]
+            let startdateMonth = startdate[1]
+            let startdateDay = startdate[2].substring(0,2)
+            let endDay = new Date(year, month, day);
+            let startDay = new Date(startdateYear, startdateMonth, startdateDay);
+            let btMs = endDay.getTime() - startDay.getTime();
+            let btDay = btMs / (1000*60*60*24) // 금연 일수
+
+            document.getElementById("noSmoke").innerHTML = "금연 " + btDay + "일 차"
+
             get_posts('{{ user_info.username }}');
             calendarInit();
             // get_calendar('{{ user_info.username }}');
@@ -114,6 +129,7 @@
                                 <div class="my-comment">{{ user_info.profile_info }}</div>
                                 <hr>
                                 금연 시작일: {{ user_info.register_day }}
+                                <div id="noSmoke"></div>
                             </p>
                         </div>
                     </div>

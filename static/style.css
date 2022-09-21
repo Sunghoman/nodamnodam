@@ -268,3 +268,7 @@ input::-webkit-calendar-picker-indicator {
     margin-top: 10px;
   }
 }
+
+#noSmoke {
+  font-size: 24px;
+}

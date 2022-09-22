@@ -1,0 +1,380 @@
+<!doctype html>
+<html lang="ko">
+    <head>
+        <!-- Webpage Title -->
+        <title>{{ user_info.name }} | 노담노담</title>
+
+        <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+        <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+        <!-- Font Awesome CSS -->
+        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+        <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet">
+        <!-- JS -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+        <script src="{{ url_for('static', filename='myJS.js') }}"></script>
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+
+        <script>
+            window.onload = (username) => {
+                if (username == null) {
+                    username=''
+                }
+                let smoked_day = '{{ user_info.smoked_day }}'
+                let smoked_day1 = smoked_day.replaceAll("&#39;","").replace("[","").replace("]","").replaceAll("'","")
+                let smoked_day2 = smoked_day1.split(",")
+                // console.log(smoked_day2) //array자료형
+                let smoked_day3 = new Set(smoked_day2) //array 내 중복 제거해줌 근데 DB에서 먼저 정리하고 가져오는게 더 좋을듯
+                // console.log(smoked_day3)
+                let smoked_day4 = [...smoked_day3]
+                // console.log(smoked_day4.length)
+                for (i = 0; i < smoked_day4.length; i++) {
+                    const day = smoked_day4[i].trim().replaceAll(" ","");
+                    document.getElementById(day).style.color="red";
+                }
+            }
+            $(document).ready(() => {
+                calendarInit();
+            })
+        </script>
+
+        <script>
+          
+          $(document).ready(function() {
+
+            let today = new Date();
+            let todayYear = today.getFullYear();
+            let todayMonth = today.getMonth()+1;
+            let todayDay = today.getDate();
+            let startdate = '{{ user_info.register_day }}'.split("-") //태그 내 innerHTML로 불러와야함 session값 ㄴㄴ 
+            let startdateYear = startdate[0]
+            let startdateMonth = startdate[1]
+            let startdateDay = startdate[2].substring(0,2)
+            let endDay = new Date(todayYear, todayMonth, todayDay);
+            let startDay = new Date(startdateYear, startdateMonth, startdateDay);
+            let btMs = endDay.getTime() - startDay.getTime();
+            let btDay = btMs / (1000 * 60 * 60 * 24) // 금연 일수
+            let myDate = String(startdateYear) + "-" + String(startdateMonth) + "-" + startDay.getDate();
+            // console.log(myDate)
+            document.getElementById("startDay").innerHTML = "금연 시작일: " + myDate
+            document.getElementById("noSmoke").innerHTML = "금연 " + btDay + "일 차"
+
+            let startdate1 = document.getElementById("startDay").innerText
+            let startdateYear1 = startdate1.split(":")[1].split("-")[0].replace(" ","")
+            let startdateMonth1 = startdate1.split(":")[1].split("-")[1]
+            let startdateDay1 = startdate1.split(":")[1].split("-")[2]
+            let startDay1 = new Date(startdateYear1, startdateMonth1, startdateDay1);
+            let btMs1 = endDay.getTime() - startDay1.getTime();
+            let btDay1 = btMs1 / (1000 * 60 * 60 * 24) // 금연 일수
+            let myDate1 = String(startdateYear1) + "-" + String(startdateMonth1) + "-" + startDay1.getDate();
+            document.getElementById("startDay").innerHTML = "금연 시작일: " + myDate1
+            document.getElementById("noSmoke").innerHTML = "금연 " + btDay1 + "일 차"
+
+            if (btDay1 > 1000) {
+                console.log("금연 1000일 이상임")
+                let achievement = document.getElementById("achievement-1000");
+                achievement.classList.add("rubberBand");
+            } if (btDay1 > 700) {
+                console.log("금연 700일 이상임")
+                let achievement = document.getElementById("achievement-700");
+                achievement.classList.add("rubberBand");
+            } if (btDay1 > 500) {
+                console.lof("금연 500일 이상임")
+                let achievement = document.getElementById("achievement-500");
+                achievement.classList.add("rubberBand");
+            } if (btDay1 > 365) {
+                console.log("금연 1주년!")
+                let achievement = document.getElementById("achievement-anniversary");
+                achievement.classList.add("rubberBand");
+            } if (btDay1 > 300) {
+                console.log("금연 300일 이상임")
+                let achievement = document.getElementById("achievement-300");
+                achievement.classList.add("rubberBand");
+            } if (btDay1 > 200) {
+                console.log("금연 200일 이상임")
+                let achievement = document.getElementById("achievement-200");
+                achievement.classList.add("rubberBand");
+            } if (btDay1 > 100) {
+                console.log("금연 100일 이상임")
+                let achievement = document.getElementById("achievement-100");
+                achievement.classList.add("rubberBand");
+            } if (btDay1 > 50) {
+                console.log("금연 50일 이상임")
+                let achievement = document.getElementById("achievement-50");
+                achievement.classList.add("rubberBand");
+            } if (btDay1 > 1) {
+                console.log("금연 1일차! 위대한 시작")
+                let achievement = document.getElementById("achievement-1");
+                achievement.classList.add("rubberBand");
+            }
+
+            get_posts('{{ user_info.username }}');
+
+          })
+          
+        </script>
+        <script>
+
+
+        </script>
+    </head>
+
+    <body class="has-navbar-fixed-top">
+
+        <nav class="navbar is-fixed-top is-white" role="navigation" aria-label="main navigation">
+            <div class="navbar-brand">
+                <a class="navbar-item" href="/">
+                    <strong class="logo">NDND</strong>
+                </a>
+            </div>
+        </nav>
+
+        <nav id="sidebar">
+            <ul class="dots">
+              <li>
+                <a href="#">
+                  <span class="achievement-1">1<mark id="achievement-1"></mark></span>
+                  <p class="arrow_box">금연 1일! 위대한 시작</p>
+                </a>  
+              </li>
+              <li>
+                <a href="#">
+                  <span class="achievement-1">50<mark id="achievement-50"></mark></span>
+                  <p class="arrow_box">금연 50일! 잘 하고 있어용</p>
+                </a>  
+              </li>
+              <li>
+                <a href="#">
+                  <span class="achievement-100">100<mark id="achievement-100"></mark></span>
+                  <p class="arrow_box">금연 100일!</p>
+                </a>  
+              </li>
+              <li>
+                <a href="#">
+                <span class="achievement-200">200<mark id="achievement-200"></mark></span>
+                <p class="arrow_box">금연 200일! 당신은 멋쟁이</p>
+                </a>  
+              </li>
+              <li>
+                <a href="#">
+                <span class="achievement-300">300<mark id="achievement-300"></mark></span>
+                <p class="arrow_box">금연 300일! 무야호</p>
+                </a>
+              </li>
+              <li class="anniversary">
+                <a href="#">
+                <span class="achievement-anniversary">1<mark id="achievement-anniversary"></mark></span>
+                <p class="arrow_box">금연 1주년!</p>
+                </a>
+              </li>    
+              <li>
+                <a href="#">
+                <span class="achievement-500">500<mark id="achievement-500"></mark></span>
+                <p class="arrow_box">금연 500일!</p>
+                </a>
+              </li>      
+              <li>
+                <a href="#">
+                <span class="achievement-700">700<mark id="achievement-700"></mark></span>
+                <p class="arrow_box">금연 700일!</p>
+                </a>
+              </li>        
+              <li>
+                <a href="#">
+                <span class="achievement-1000">1k<mark id="achievement-1000"></mark></span>
+                <p class="arrow_box">금연 1000일!</p>
+                </a>
+              </li>    
+            </ul> 
+          </nav>
+
+        <section class="hero is-medium is-warning" id="profile-info">
+            <div class="hero-body">
+                <article class="media">
+                    <figure class="media-left" style="align-self: center">
+                        <a class="image is-96x96" href="#">
+                            <img class="is-rounded" src="{{ url_for('static', filename=user_info.profile_pic_real) }}">
+                        </a>
+                    </figure>
+                    <div class="media-content">
+                        <div class="content">
+                            <p>
+                                <strong>{{ user_info.profile_name }}</strong> <small>@{{ user_info.username }}</small>
+                                <br>
+                                <div class="my-comment">{{ user_info.profile_info }}</div>
+                                <hr>
+                                <div id="noSmoke"></div>
+                                <p id="startDay"></p>
+                            </p>
+                        </div>
+                    </div>
+                </article>
+                {% if status %}
+                    <nav id="btns-me" class="level is-mobile" style="margin-top:2rem">
+                        <a class="button level-item has-text-centered is-sparta" aria-label="edit" onclick='$("#modal-edit").addClass("is-active")'>
+                            프로필 수정&nbsp;&nbsp;&nbsp;<span class="icon is-small"><i class="fa fa-pencil"aria-hidden="true"></i></span>
+                        </a>
+                    
+                        <a class="button level-item has-text-centered is-sparta is-outlined" aria-label="logout" onclick="sign_out()" style="background: white; border: none;">
+                            로그아웃&nbsp;&nbsp;&nbsp;<span class="icon is-small"><i class="fa fa-sign-out"aria-hidden="true"></i></span>
+                        </a>
+                    </nav>
+                    <div class="modal" id="modal-edit">
+                        <div class="modal-background" onclick='$("#modal-edit").removeClass("is-active")'></div>
+                        <div class="modal-content">
+                            <div class="box">
+                                <article class="media">
+                                    <div class="media-content">
+                                        <div class="field">
+                                            <label class="label" for="input-name">이름</label>
+                    
+                                            <p class="control">
+                    
+                                                <input id="input-name" class="input"
+                                                    placeholder="홍길동" value="{{ user_info.profile_name }}">
+                                            </p>
+                                        </div>
+                                        <div class="field">
+                                            <label class="label" for="input-pic">프로필 사진</label>
+                    
+                                            <div class="control is-expanded">
+                                                <div class="file has-name">
+                                                    <label class="file-label" style="width:100%">
+                                                        <input id="input-pic" class="file-input" type="file" name="resume">
+                                                        <span class="file-cta">
+                                                            <span class="file-icon">
+                                                                <i class="fa fa-upload"></i>
+                                                            </span>
+                                                            <span class="file-label">파일 선택</span>
+                                                        </span>
+                                                        <span id="file-name" class="file-name"
+                                                            style="width:100%;max-width:100%">{{ user_info.profile_pic }}</span>
+                                                    </label>
+                                                </div>
+                    
+                                            </div>
+                                        </div>
+                                        <div class="field">
+                                            <label class="label" for="textarea-about">나는 누구?</label>
+                    
+                                            <p class="control">
+                    
+                                            <textarea id="textarea-about" class="textarea"
+                                                    placeholder="자기소개하기">{{ user_info.profile_info }}</textarea>
+                                            </p>
+                                        </div>
+                                        <nav class="level is-mobile">
+                                            <div class="level-left">
+                    
+                                            </div>
+                                            <div class="level-right">
+                                                <div class="level-item">
+                                                    <a class="button is-sparta" onclick="update_profile()">업데이트</a>
+                                                </div>
+                                                <div class="level-item">
+                                                    <a class="button is-sparta is-outlined"
+                                                    onclick='$("#modal-edit").removeClass("is-active")'>취소</a>
+                                                </div>
+                                            </div>
+                                        </nav>
+                                    </div>
+                                </article>
+                            </div>
+                        </div>
+                        <button class="modal-close is-large" aria-label="close" onclick='$("#modal-edit").removeClass("is-active")'></button>
+                    </div>
+                {% endif %}
+            </div>
+            {% if status %}
+            <div class="sec_cal">
+                <div class="cal_nav">
+                    <a href="javascript:;" class="nav-btn go-prev">prev</a>
+                    <div class="year-month"></div>
+                    <a href="javascript:;" class="nav-btn go-next">next</a>
+                </div>
+                <div class="cal_wrap">
+                    <div class="days">
+                        <div class="day">MON</div>
+                        <div class="day">TUE</div>
+                        <div class="day">WED</div>
+                        <div class="day">THU</div>
+                        <div class="day">FRI</div>
+                        <div class="day">SAT</div>
+                        <div class="day">SUN</div>
+                    </div>
+                    <div class="dates"></div>
+                </div>
+            </div>
+            {% endif %}
+
+        </section>
+        
+
+        {% if status %}
+            <section class="section">
+                <article class="media">
+                    <figure class="media-left" style="align-self: center">
+                        <a class="image is-32x32" href="/user/{{ user_info.username }}">
+                            <img class="is-rounded" src="{{ url_for('static', filename=user_info.profile_pic_real) }}">
+                        </a>
+                    </figure>
+                    <div class="media-content">
+                        <div class="field">
+                            <p class="control">
+                                <input id="input-post" class="input is-rounded" placeholder="무슨 생각을 하고 계신가요?"
+                                    onclick='$("#modal-post").addClass("is-active")'>
+                            </p>
+                        </div>
+                    </div>
+                </article>
+                <div class="modal" id="modal-post">
+                    <div class="modal-background" onclick='$("#modal-post").removeClass("is-active")'></div>
+                    <div class="modal-content">
+                        <div class="box">
+                            <article class="media">
+                                <div class="media-content">
+                                    <div class="field">
+                                        <p class="control">
+                                            <textarea id="textarea-post" class="textarea"
+                                                    placeholder="무슨 생각을 하고 계신가요?"></textarea>
+                                        </p>
+                                    </div>
+                                    <nav class="level is-mobile">
+                                        <div class="level-left">
+        
+                                        </div>
+                                        <div class="level-right">
+                                            <div class="level-item">
+                                                <a class="button is-sparta" onclick="post()">포스팅하기</a>
+                                            </div>
+                                            <div class="level-item">
+                                                <a class="button is-sparta is-outlined"
+                                                onclick='$("#modal-post").removeClass("is-active")'>취소</a>
+                                            </div>
+                                        </div>
+                                    </nav>
+                                </div>
+                            </article>
+                        </div>
+                    </div>
+                    <button class="modal-close is-large" aria-label="close"
+                            onclick='$("#modal-post").removeClass("is-active")'></button>
+                </div>
+        
+            </section>
+        {% endif %}
+        <section class="section">
+            <div id="post-box" class="container">
+      
+            </div>
+        </section>
+      </body>
+</html>

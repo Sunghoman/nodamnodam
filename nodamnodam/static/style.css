@@ -1,0 +1,581 @@
+body {
+  background-color: #f4f7ff;
+  min-height: 100vh;
+  padding-top: 3.25rem;
+}
+
+.logo {
+  font-size: 36px;
+}
+
+hr {
+  background: #000;
+}
+
+.section {
+    padding: 1rem 1.5rem;
+    max-width: 750px;
+    margin: auto;
+}
+
+.is-sparta {
+    color: tomato !important;
+}
+
+.button.is-sparta {
+    background-color: tomato;
+    border-color: transparent;
+    color: #fff !important;
+}
+
+.button.is-sparta.is-outlined {
+    background-color: transparent;
+    border-color: tomato;
+    color: tomato !important;
+}
+
+.modal-content {
+    width: 600px;
+    max-width: 80%;
+}
+
+input::-webkit-calendar-picker-indicator {
+    display: none;
+}
+
+.image img {
+    object-fit:cover;
+    width:100%;
+    height:100%;
+}
+
+.textarea {
+  outline: none;
+  border: none;
+  background: #f4f7ff;
+}
+
+/* Ranking Start */
+.ranking {
+  height: 30vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.ranking h1 {
+  text-align: center;
+  text-transform: uppercase;
+  color: #262626;
+  font-size: 3rem;
+  width: 100%;
+}
+
+.ranking .roller {
+  height: 4.125rem;
+  line-height: 4rem;
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  color: tomato;
+}
+
+.ranking .roller .rolltext {
+  position: absolute;
+  top: 0;
+  animation: slide 100s infinite;
+}
+@keyframes slide {
+  0% {
+    top: 0;
+  }
+  10% {
+    top: -4rem;
+  }
+  20% {
+    top: -8rem;
+  }
+  30% {
+    top: -12rem;
+  }
+  40% {
+    top: -16rem;
+  }
+  50% {
+    top: -20rem;
+  }
+  60% {
+    top: -24rem;
+  }
+  70% {
+    top: -28rem;
+  }
+  80% {
+    top: -32rem;
+  }
+  90% {
+    top: -36rem;
+  }
+}
+/* Ranking End */
+
+.my-comment {
+  padding: 7px;
+  display: block;
+  margin-bottom: -35px;
+  width: 350px;
+  height: 50px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.hero-body {
+  width: 500px; 
+  height: auto;
+  margin: auto;
+  min-width: 400px;
+}
+
+/* section Calendar Start */
+.sec_cal {
+  width: 360px;
+  margin: 0 auto;
+}
+.sec_cal .cal_nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 700;
+  font-size: 48px;
+  line-height: 78px;
+}
+.sec_cal .cal_nav .year-month {
+  width: 300px;
+  text-align: center;
+  line-height: 1;
+}
+
+.sec_cal .cal_nav .nav {
+  display: flex;
+  border: 1px solid #333333;
+  border-radius: 5px;
+}
+.sec_cal .cal_nav .go-prev,
+.sec_cal .cal_nav .go-next {
+  display: block;
+  width: 50px;
+  height: 78px;
+  font-size: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.sec_cal .cal_nav .go-prev::before,
+.sec_cal .cal_nav .go-next::before {
+  content: "";
+  display: block;
+  width: 20px;
+  height: 20px;
+  border: 3px solid #000;
+  border-width: 3px 3px 0 0;
+  transition: border 0.3s;
+} 
+.sec_cal .cal_nav .go-prev:hover::before,
+.sec_cal .cal_nav .go-next:hover::before {
+  border-color: tomato;
+}
+.sec_cal .cal_nav .go-prev::before {
+  transform: rotate(-135deg);
+}
+.sec_cal .cal_nav .go-next::before {
+  transform: rotate(45deg);
+}
+.sec_cal .cal_wrap {
+  padding-top: 40px;
+  position: relative;
+  margin: 0 auto;
+}
+.sec_cal .cal_wrap .days {
+  display: flex;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgb(0, 0, 0);
+}
+.sec_cal .cal_wrap::after {
+  top: 368px;
+}
+.sec_cal .cal_wrap .day {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: calc(100% / 7);
+  text-align: left;
+  color: #999;
+  font-size: 12px;
+  text-align: center;
+  border-radius: 5px;
+}
+
+.current.today {
+  background: rgb(242,242,242);
+}
+
+.sec_cal .cal_wrap .dates {
+  display: flex;
+  flex-flow: wrap;
+  height: 290px;
+}
+
+.sec_cal .cal_wrap .day:nth-child(7n -1) {
+  color: #3c6ffa;
+}
+.sec_cal .cal_wrap .day:nth-child(7n) {
+  color: #ed2a61;
+}
+.sec_cal .cal_wrap .day.disable {
+  color: #ddd;
+}
+
+.sec_cal {
+  margin-bottom: 100px;
+  margin-top: -100px;
+}
+
+.current {
+  transition: all 0.3s linear;
+}
+.current:hover {
+  transform: scale(1.5);
+}
+/* section Calendar End */
+
+#profile-info {
+  background-color: #DAEDFB;
+}
+
+.current.today.smoked {
+  background: tomato;
+}
+
+@media (max-width: 768px) {
+  .sec_cal {
+    margin-top: 10px;
+  }
+  #profile-info {
+    display: block;
+    margin-left: 25px;
+    width: 700px;
+  }
+  .box {
+    width: 615px;
+    margin: 0 auto;
+    margin-left: -40px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .input {
+    width: 500px;
+  }
+}
+
+#noSmoke {
+  font-size: 24px;
+  margin-top: -20px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@import url("https://fonts.googleapis.com/css?family=Roboto:400,700");
+@import url("https://fonts.googleapis.com/css?family=Merriweather+Sans:400,400italic");
+@import url("//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css");
+
+main {
+  margin-left: 100px;
+  padding: 20px;
+}
+
+h1 {
+  font-family: 'Merriweather Sans', sans-serif;
+  font-weight: 400;
+  font-size: 30px;
+}
+nav#sidebar {
+  background-color: #34495e;
+  position: fixed;
+  width: 100px;
+  height: 100%;
+  margin-top: 18px;
+}
+ul.dots * {
+  /* disable border-box from bootstrap */
+  box-sizing: content-box;
+  list-style-type: none;  
+}
+ul.dots a {
+  text-decoration: none;
+  font-size: 20px;
+  color: #34495e;
+}
+ul.dots a:hover {
+  text-decoration: none;
+  font-size: 20px;
+  color: #bdc3c7;
+}
+ul.dots li {
+  display: box;
+  position: relative;
+  width: 100%;
+  padding: 10px 0 ;  
+}
+ul.dots li:hover {
+  background: #2c3e50;
+}
+ul.dots li span {
+  display: block;
+  -webkit-border-radius: 30px;
+  -moz-border-radius: 30px;
+  border-radius: 30px; 
+  background-color: #FFF;
+  -webkit-box-shadow: 1px 1px 5px #808080;
+  -moz-box-shadow: 1px 1px 5px #808080;
+  box-shadow: 1px 1px 5px #808080;  
+  padding: 10px;
+  width: 30px;
+  height: 30px;
+  margin: 0 auto;
+  line-height: 30px;
+  text-align: center;
+  position: relative;
+}
+ul.dots li mark {
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  border-radius: 20px;   
+  border: 2px solid #FFF;
+  width: 20px;
+  height: 20px;  
+  background-color: rgba(0,0,0,0.4); /* 달성 시 이게 채워져야 함 */
+  position: absolute;
+  top: -5px;
+  left: -10px;
+  font-size: 10px;
+  line-height: 20px;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  color: #FFF;
+  font-weight: 700;
+}
+ul.dots li mark.big {
+  width: 30px;
+  height: 30px;  
+  -webkit-border-radius: 30px;
+  -moz-border-radius: 30px;
+  border-radius: 30px;
+  line-height: 30px;  
+  font-size: 16px;  
+  top: -10px;
+  left: -15px;
+}
+ul.dots li mark.green {
+  background-color: #27ae60;
+}
+ul.dots li mark.blue {
+  background-color: #3498db;
+}
+ul.dots > li > a > span > mark {
+  -webkit-animation-name: bounceIn;
+          animation-name: bounceIn;
+  -webkit-transform-origin: center bottom;
+      -ms-transform-origin: center bottom;
+          transform-origin: center bottom;
+  -webkit-animation-duration: 1s;
+          animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+          animation-fill-mode: both;   
+-webkit-animation-iteration-count: 1;
+        animation-iteration-count: 1;  
+}
+ul.dots > li:hover > a > span > mark {
+  -webkit-animation-name: bounce;
+          animation-name: bounce;
+}
+ul.dots > li:hover > a > span > mark.rubberBand {
+  -webkit-animation-name: rubberBand;
+          animation-name: rubberBand;
+}
+
+ul.dots > li:hover > a > span > mark.swing {
+  -webkit-transform-origin: top center;
+      -ms-transform-origin: top center;
+          transform-origin: top center;
+  -webkit-animation-name: swing;
+          animation-name: swing;
+}
+ul.dots > li:hover > a > span > mark.tada {
+  -webkit-animation-name: tada;
+          animation-name: tada;
+}
+ul.dots > li:hover > a > span > mark.wobble {
+  -webkit-animation-name: wobble;
+          animation-name: wobble;
+}
+li {
+  list-style-type: circle;
+}
+
+code {
+  background: #ecf0f1;
+}
+
+
+@-webkit-keyframes rubberBand {
+  0% {
+    -webkit-transform: scale3d(1, 1, 1);
+            transform: scale3d(1, 1, 1);
+  }
+
+  30% {
+    -webkit-transform: scale3d(1.25, 0.75, 1);
+            transform: scale3d(1.25, 0.75, 1);
+  }
+
+  40% {
+    -webkit-transform: scale3d(0.75, 1.25, 1);
+            transform: scale3d(0.75, 1.25, 1);
+  }
+
+  50% {
+    -webkit-transform: scale3d(1.15, 0.85, 1);
+            transform: scale3d(1.15, 0.85, 1);
+  }
+
+  65% {
+    -webkit-transform: scale3d(.95, 1.05, 1);
+            transform: scale3d(.95, 1.05, 1);
+  }
+
+  75% {
+    -webkit-transform: scale3d(1.05, .95, 1);
+            transform: scale3d(1.05, .95, 1);
+  }
+
+  100% {
+    -webkit-transform: scale3d(1, 1, 1);
+            transform: scale3d(1, 1, 1);
+  }
+}
+
+@keyframes rubberBand {
+  0% {
+    -webkit-transform: scale3d(1, 1, 1);
+            transform: scale3d(1, 1, 1);
+  }
+
+  30% {
+    -webkit-transform: scale3d(1.25, 0.75, 1);
+            transform: scale3d(1.25, 0.75, 1);
+  }
+
+  40% {
+    -webkit-transform: scale3d(0.75, 1.25, 1);
+            transform: scale3d(0.75, 1.25, 1);
+  }
+
+  50% {
+    -webkit-transform: scale3d(1.15, 0.85, 1);
+            transform: scale3d(1.15, 0.85, 1);
+  }
+
+  65% {
+    -webkit-transform: scale3d(.95, 1.05, 1);
+            transform: scale3d(.95, 1.05, 1);
+  }
+
+  75% {
+    -webkit-transform: scale3d(1.05, .95, 1);
+            transform: scale3d(1.05, .95, 1);
+  }
+
+  100% {
+    -webkit-transform: scale3d(1, 1, 1);
+            transform: scale3d(1, 1, 1);
+  }
+}
+
+.dots li span {
+  color: rgba(0,0,0,0.4); /* 달성 시 이 색깔이 바뀜 */
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.anniversary a span {
+  color: rgba(0,0,0,0.4); /* 달성 시 이 색깔이 바뀜 */
+  font-size: 22px;
+  font-weight: 800;
+}
+
+ul.dots li .rubberBand {
+  background-color: tomato;
+}
+
+/* .dots li .achieved {
+
+} */
+
+body {
+  min-width: 1000px;
+}
+
+.arrow_box {
+  position:fixed;
+  width: max-content;
+  height: 50px;
+  padding: 8px;
+  margin-top: -50px;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  border-radius: 8px;
+  background: transparent;
+  color: transparent;
+  font-size: 14px;
+  transition: all 0.3s linear;
+  z-index: 999;
+}
+.arrow_box:hover {
+  display: inline-block;
+  transform: translateX(25%);
+  height: 45px;
+  width: 15%;
+  font-size: 12px;
+  background: rgba(0, 0, 0, 0.7);
+  color: #fff;
+  margin-left: -50px;
+  text-align: center;
+}
+
+.title {
+  align-items: center;
+  display: flex;
+}
+
+* {
+  font-family: 'Jua', sans-serif;
+}
